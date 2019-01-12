@@ -25,5 +25,5 @@ This will start service on port 8080
 #Examples
 
 ```
-óTo see examples please import msi.postman_collection.json to postman
+To see examples please import msi.postman_collection.json to postman
 ``` 
