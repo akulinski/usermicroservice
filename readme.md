@@ -1,8 +1,8 @@
-  #Prerequisites
+ ##Prerequisites
   ```$xslt
 1. Docker installed on computer
 ```
-   #How to start
+   ##How to start
    
 ```$xslt
 1. Enter root of project in terminal
@@ -22,7 +22,7 @@
 
 This will start service on port 8080
 
-#Examples
+##Examples
 
 ```
 To see examples please import msi.postman_collection.json to postman
