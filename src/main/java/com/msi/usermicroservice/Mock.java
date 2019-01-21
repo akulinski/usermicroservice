@@ -1,7 +1,10 @@
 package com.msi.usermicroservice;
 
+import com.msi.usermicroservice.core.entites.Authority;
+import com.msi.usermicroservice.core.entites.AuthorityEntity;
 import com.msi.usermicroservice.core.entites.HistoryEntity;
 import com.msi.usermicroservice.core.entites.UserEntity;
+import com.msi.usermicroservice.core.repositories.AuthorityRepository;
 import com.msi.usermicroservice.core.repositories.HistoryRepository;
 import com.msi.usermicroservice.core.repositories.UserRepository;
 import com.thedeanda.lorem.Lorem;
@@ -22,14 +25,19 @@ public class Mock {
 
     private final SecureRandom secureRandom;
 
+    private final AuthorityRepository authorityRepository;
+
     private Lorem lorem;
 
+    private static Authority[] authorities = new Authority[]{Authority.ADMIN,Authority.DOCTOR,Authority.PATIENT};
+
     @Autowired
-    public Mock(UserRepository userRepository, HistoryRepository historyRepository) {
+    public Mock(UserRepository userRepository, HistoryRepository historyRepository, AuthorityRepository authorityRepository) {
         this.lorem = LoremIpsum.getInstance();
         this.userRepository = userRepository;
         this.historyRepository = historyRepository;
         this.secureRandom = new SecureRandom();
+        this.authorityRepository = authorityRepository;
     }
 
     private void mock() {
@@ -65,6 +73,16 @@ public class Mock {
             userEntity.setGender("F");
         }
         userRepository.save(userEntity);
+
+        AuthorityEntity authorityEntity = getAuthorityEntity(userEntity);
+        authorityRepository.save(authorityEntity);
+    }
+
+    private AuthorityEntity getAuthorityEntity(UserEntity userEntity) {
+        AuthorityEntity authorityEntity = new AuthorityEntity();
+        authorityEntity.setAuthority(authorities[secureRandom.nextInt(authorities.length)]);
+        authorityEntity.setUserEntity(userEntity);
+        return authorityEntity;
     }
 
     @EventListener(ApplicationReadyEvent.class)

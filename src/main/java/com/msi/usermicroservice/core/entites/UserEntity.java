@@ -1,5 +1,6 @@
 package com.msi.usermicroservice.core.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,10 +24,10 @@ public class UserEntity extends BaseEntity {
     @Column(name = "id_user")
     private Integer id;
 
-    @Column(name = "username",precision = 255, nullable = false)
+    @Column(name = "username", precision = 255, nullable = false)
     private String username;
 
-    @Column(name = "gender",precision = 255)
+    @Column(name = "gender", precision = 255)
     private String gender;
 
     @Fetch(FetchMode.SELECT)
@@ -34,4 +35,9 @@ public class UserEntity extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private Set<HistoryEntity> historyEntities;
 
+    @JsonIgnore
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private Set<AuthorityEntity> authorityEntitySet;
 }

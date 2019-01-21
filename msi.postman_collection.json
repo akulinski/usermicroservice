@@ -40,7 +40,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/get-user-by-id/6",
+					"raw": "http://localhost:8080/api/users/get-user-by-id/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -50,7 +50,7 @@
 						"api",
 						"users",
 						"get-user-by-id",
-						"6"
+						"1"
 					]
 				}
 			},
@@ -273,6 +273,32 @@
 						"history",
 						"update-history",
 						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthority",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/get-authority/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"get-authority",
+						"1"
 					]
 				}
 			},

@@ -1,6 +1,7 @@
 package com.msi.usermicroservice.core.controllers;
 
 import com.msi.usermicroservice.core.entites.UserEntity;
+import com.msi.usermicroservice.core.repositories.AuthorityRepository;
 import com.msi.usermicroservice.core.repositories.UserRepository;
 import com.msi.usermicroservice.requestresponsemodels.AddUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,12 @@ public class UserController {
 
     private final UserRepository userRepository;
 
+    private final AuthorityRepository authorityRepository;
+
     @Autowired
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;
+        this.authorityRepository = authorityRepository;
     }
 
     @GetMapping("get-all-users")
@@ -77,6 +81,12 @@ public class UserController {
         } catch (NoSuchElementException noSuchElementException) {
             return getResponseEntityWhenNoteDoesNotExist(id, "User with given id(%s) does not exist ");
         }
+    }
+
+    @GetMapping("get-authority/{userid}")
+    public ResponseEntity getAuthorityById(@PathVariable String userid) {
+        UserEntity userEntity = userRepository.findById(Integer.parseInt(userid)).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        return new ResponseEntity<>(userEntity.getAuthorityEntitySet(), HttpStatus.OK);
     }
 
     private ResponseEntity getResponseEntityOfUserUpdate(@PathVariable String id, @RequestBody AddUserRequest addUserRequest) {

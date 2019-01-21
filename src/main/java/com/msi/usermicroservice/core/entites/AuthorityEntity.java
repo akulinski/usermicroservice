@@ -4,29 +4,28 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "history")
+@Table(name = "authority")
 @Getter
 @Setter
 @NoArgsConstructor
-public class HistoryEntity extends BaseEntity {
+public class AuthorityEntity extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_history")
+    @Column(name = "id_authority")
     private Integer id;
 
-    @Column(name = "value")
-    @Type(type = "text")
-    private String value;
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_id_user", referencedColumnName = "id_user")
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id", referencedColumnName = "id_user")
     private UserEntity userEntity;
 
 }

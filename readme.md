@@ -5,6 +5,21 @@
 2. jdk 8
 3. maven
 ```
+#Important
+
+```
+If you are on linux please use sudo for docker commands
+```
+
+# Pulling from docker repo 
+
+```$xslt
+    1. docker pull akulinski/usermicroservice 
+```
+```$xslt
+    2. docker run -p 8080:8080 akulinski/usermicroservice
+```
+
 # How to start
    
 ```$xslt
