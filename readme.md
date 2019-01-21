@@ -1,11 +1,5 @@
 
- # Prerequisites
-  ```$xslt
-1. Docker installed on computer
-2. jdk 8
-3. maven
-```
-#Important
+# Important
 
 ```
 If you are on linux please use sudo for docker commands
@@ -18,6 +12,13 @@ If you are on linux please use sudo for docker commands
 ```
 ```$xslt
     2. docker run -p 8080:8080 akulinski/usermicroservice
+```
+
+ # Prerequisites
+  ```$xslt
+1. Docker installed on computer
+2. jdk 8
+3. maven
 ```
 
 # How to start
