@@ -72,6 +72,7 @@ public class Mock {
             userEntity.setUsername(lorem.getFirstNameFemale());
             userEntity.setGender("F");
         }
+        userEntity.setPassword(lorem.getLastName());
         userRepository.save(userEntity);
 
         AuthorityEntity authorityEntity = getAuthorityEntity(userEntity);

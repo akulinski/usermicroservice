@@ -24,11 +24,14 @@ public class UserEntity extends BaseEntity {
     @Column(name = "id_user")
     private Integer id;
 
-    @Column(name = "username", precision = 255, nullable = false)
+    @Column(name = "username", precision = 255, nullable = false,unique = true)
     private String username;
 
     @Column(name = "gender", precision = 255)
     private String gender;
+
+    @Column(name = "password", precision = 255)
+    private String password;
 
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)

@@ -7,7 +7,8 @@ public enum Authority {
     ADMIN("ADMIN");
 
     private String value;
-    private Authority(String value){
+
+    Authority(String value){
         this.value = value;
     }
 }

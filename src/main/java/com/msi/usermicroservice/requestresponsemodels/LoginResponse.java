@@ -9,9 +9,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AddUserRequest {
-    private String username;
-    private String gender;
-    private String password;
-    private String authority;
+public class LoginResponse {
+    private Boolean successful;
 }

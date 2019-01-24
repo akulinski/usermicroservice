@@ -1,15 +1,20 @@
 package com.msi.usermicroservice.core.controllers;
 
+import com.msi.usermicroservice.core.entites.Authority;
+import com.msi.usermicroservice.core.entites.AuthorityEntity;
 import com.msi.usermicroservice.core.entites.UserEntity;
 import com.msi.usermicroservice.core.repositories.AuthorityRepository;
 import com.msi.usermicroservice.core.repositories.UserRepository;
 import com.msi.usermicroservice.requestresponsemodels.AddUserRequest;
+import com.msi.usermicroservice.requestresponsemodels.LoginRequest;
+import com.msi.usermicroservice.requestresponsemodels.LoginResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
@@ -60,13 +65,44 @@ public class UserController {
     @PostMapping("add-user")
     public ResponseEntity addUser(@RequestBody AddUserRequest addUserRequest) {
         UserEntity userEntity = createNewUser(addUserRequest);
+        createAuthorityForUser(addUserRequest, userEntity);
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
+    }
+
+
+    private void createAuthorityForUser(@RequestBody AddUserRequest addUserRequest, UserEntity userEntity) {
+        AuthorityEntity authorityEntity = new AuthorityEntity();
+        if (addUserRequest.getAuthority().equalsIgnoreCase("patient")) {
+            authorityEntity.setAuthority(Authority.PATIENT);
+        } else if (addUserRequest.getAuthority().equalsIgnoreCase("doctor")) {
+            authorityEntity.setAuthority(Authority.DOCTOR);
+        } else {
+            authorityEntity.setAuthority(Authority.ADMIN);
+        }
+        authorityEntity.setUserEntity(userEntity);
+        authorityRepository.save(authorityEntity);
+    }
+
+    @PostMapping("login")
+    public ResponseEntity login(@RequestBody LoginRequest loginRequest) {
+        Optional<UserEntity> userEntity = userRepository.findByUsernameAndPassword(loginRequest.getUsername(), loginRequest.getPassword());
+
+        if (userEntity.isPresent()) {
+            return createLoginResponse(true);
+        }else{
+            return createLoginResponse(false);
+        }
+    }
+
+    private ResponseEntity createLoginResponse(boolean value) {
+        return new ResponseEntity<>(new LoginResponse(value), HttpStatus.OK);
     }
 
     private UserEntity createNewUser(@RequestBody AddUserRequest addUserRequest) {
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(addUserRequest.getUsername());
         userEntity.setGender(addUserRequest.getGender());
+        userEntity.setPassword(addUserRequest.getPassword());
         userRepository.save(userEntity);
         return userEntity;
     }
@@ -93,6 +129,7 @@ public class UserController {
         UserEntity userEntity = getUserEntityFromStringId(id);
         userEntity.setUsername(addUserRequest.getUsername());
         userEntity.setGender(addUserRequest.getGender());
+        userEntity.setPassword(addUserRequest.getPassword());
         userRepository.save(userEntity);
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
     }

@@ -70,7 +70,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"test\",\n\t\"gender\":\"wtf\"\n}"
+					"raw": "{\n\t\"username\":\"tomeczek\",\n\t\"gender\":\"wtf\",\n\t\"password\":\"tomeczek1\",\n\t\"authority\":\"patient\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/users/add-user",
@@ -102,10 +102,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"username\":\"test2\",\n\t\"gender\":\"wtf2\"\n}"
+					"raw": "{\n\t\"username\":\"test\",\n\t\"gender\":\"wtf\",\n\t\"password\":\"test\",\n\t\"authority\":\"patient\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/update-user-by-id/261",
+					"raw": "http://localhost:8080/api/users/update-user-by-id/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -115,7 +115,7 @@
 						"api",
 						"users",
 						"update-user-by-id",
-						"261"
+						"1"
 					]
 				}
 			},
@@ -299,6 +299,38 @@
 						"users",
 						"get-authority",
 						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"tomeczek\",\n\t\"password\":\"tomeczek1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"login"
 					]
 				}
 			},
